@@ -1,7 +1,7 @@
 import firebase from "@firebase/app";
 
-require("firebase/auth");
-require("firebase/firestore");
+require("@firebase/auth");
+require("@firebase/firestore");
 
 var firebaseConfig = {
   apiKey: `${process.env.VUE_APP_APPKEY}`,
