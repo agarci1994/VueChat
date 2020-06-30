@@ -8,12 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@firebase/app": "^0.6.7",
-    "@firebase/auth": "^0.14.7",
-    "@firebase/firestore": "^1.15.5",
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
     "eslint-loader": "^4.0.2",
+    "firebase": "^7.15.5",
     "uuidv4": "^6.1.1",
     "vue": "^2.6.11",
     "vuetify": "^2.2.11"

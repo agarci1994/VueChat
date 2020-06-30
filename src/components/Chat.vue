@@ -104,8 +104,9 @@
 </template>
 
 <script>
-import { db } from "@/firebase";
+import firebase from "../firebase";
 import { uuid } from "uuidv4";
+
 export default {
   props: ["user"],
   data() {
@@ -159,13 +160,13 @@ export default {
       this.cid = this.generateChatId(this.user.uid, user.uid);
 
       try {
-        let doc = await db
+        let doc = await firebase.db
           .collection("contactos")
           .doc(this.cid)
           .get();
 
         if (!doc.exists) {
-          await db
+          await firebase.db
             .collection("contactos")
             .doc(this.cid)
             .set({ cid: this.cid });
@@ -185,7 +186,7 @@ export default {
       if (this.stopChat) {
         this.stopChat();
       }
-      this.stopChat = db
+      this.stopChat = firebase.db
         .collection("contactos")
         .doc(this.cid)
         .collection("chat")
@@ -217,9 +218,9 @@ export default {
         );
     },
     markMessage(message) {
-      let batch = db.batch();
+      let batch = firebase.db.batch();
       batch.update(
-        db
+        firebase.db
           .collection("contactos")
           .doc(this.cid)
           .collection("chat")
@@ -227,7 +228,7 @@ export default {
         { dateRead: new Date() }
       );
       batch.delete(
-        db
+        firebase.db
           .collection("usuarios")
           .doc(this.user.uid)
           .collection("noRead")
@@ -241,7 +242,7 @@ export default {
     },
     async consultUsers() {
       try {
-        let docs = await db.collection("usuarios").get();
+        let docs = await firebase.db.collection("usuarios").get();
         docs.forEach((doc) => {
           let user = doc.data();
           if (user.uid !== this.user.uid) {
@@ -260,7 +261,7 @@ export default {
     },
 
     consultChatNotRead() {
-      db.collection("usuarios")
+      firebase.db.collection("usuarios")
         .doc(this.user.uid)
         .collection("noRead")
         .orderBy("date")
@@ -312,9 +313,9 @@ export default {
         date: new Date(),
         uid: this.user.uid,
       };
-      let batch = db.batch();
+      let batch = firebase.db.batch();
       batch.set(
-        db
+        firebase.db
           .collection("contactos")
           .doc(this.cid)
           .collection("chat")
@@ -323,7 +324,7 @@ export default {
       );
 
       batch.set(
-        db
+        firebase.db
           .collection("usuarios")
           .doc(this.userSelected.uid)
           .collection("noRead")

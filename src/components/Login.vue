@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { auth, db } from "@/firebase";
+import firebase from "../firebase";
 
 export default {
   data() {
@@ -41,10 +41,10 @@ export default {
       }
 
       try {
-        await auth.signInWithEmailAndPassword(this.email, this.password);
-        if (auth.currentUser) {
-          let uid = auth.currentUser.uid;
-          let doc = await db
+        await firebase.auth.signInWithEmailAndPassword(this.email, this.password);
+        if (firebase.auth.currentUser) {
+          let uid = firebase.auth.currentUser.uid;
+          let doc = await firebase.db
             .collection("usuarios")
             .doc(uid)
             .get();
