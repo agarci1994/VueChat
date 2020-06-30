@@ -15,7 +15,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container fluid fill-height>
+      <v-container fluid fill-height class='background'>
         <Login v-if="!user" @onLogin="login" @onNotification='viewNotification' />
         <Chat v-else @onNotification='viewNotification' :user='user' />
       </v-container>
@@ -76,5 +76,8 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
+}
+.background{
+  background-color: '#f1f1f1'
 }
 </style>
