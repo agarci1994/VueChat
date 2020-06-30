@@ -6,8 +6,8 @@
           <v-toolbar class="title">Ingresa tu email y contraseña</v-toolbar>
         </v-toolbar>
         <v-card-text>
-          <v-text-field v-model="email" label="email"></v-text-field>
-          <v-text-field v-model="password" label="password" type="password"></v-text-field>
+          <v-text-field autofocus v-model="email" label="email"></v-text-field>
+          <v-text-field @keyup.enter='login' v-model="password" label="password" type="password"></v-text-field>
         </v-card-text>
         <v-card-text>
           <v-layout justify-end>
